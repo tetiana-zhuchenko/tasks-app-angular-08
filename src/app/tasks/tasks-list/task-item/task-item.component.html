@@ -11,17 +11,19 @@
   </header>
   <p>{{ task().description }}</p>
   <form (ngSubmit)="onChangeTaskStatus(task().id, status.value)">
-    <select #status>
+    <select title="options-list" #status>
       <option value="open" [selected]="task().status === 'OPEN'">Open</option>
-      <option value="in-progress" [selected]="task().status === 'IN_PROGRESS'">
-        In-Progress
+      @for (option of taskStatusOptions; track option.value) {
+      <option
+        [value]="option.value"
+        [selected]="task().status === option.taskStatus"
+      >
+        {{ option.text }}
       </option>
-      <option value="done" [selected]="task().status === 'DONE'">
-        Completed
-      </option>
+      }
     </select>
     <p>
-      <button>Change Status</button>
+      <button type="button">Change Status</button>
     </p>
   </form>
 </article>
